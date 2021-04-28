@@ -20,77 +20,90 @@ public class Board {
 			pieces[x]=0; 
 	}
 	
-private void initializePieces() {
+	private void initializePieces() {
 	
 		//Initialize Pawns
 		for(int x = 0; x < width; x++) {
-			int whitePawn = (Piece.pawn<<1) | Piece.white;
+			int whitePawn = Piece.PAWN | Piece.WHITE;
 			pieces[size-1-x-width] = whitePawn;
-			int blackPawn = (Piece.pawn<<1) | Piece.black;
+			int blackPawn = Piece.PAWN | Piece.BLACK;
 			pieces[x+width] = blackPawn;
 		}
 		
 		//Initialize Rooks
 		for(int i=0;i<2;i++) {
-			int whiteRook = (Piece.rook<<1) | Piece.white;
+			int whiteRook = Piece.ROOK | Piece.WHITE;
 			pieces[size-1-i*7] = whiteRook;
-			int blackRook = (Piece.rook<<1) | Piece.black;
+			int blackRook = Piece.ROOK | Piece.BLACK;
 			pieces[i*7] = blackRook;
 		}
 		
 		//Initialize Knights
 		for(int i=0;i<2;i++) {
-			int whiteKnight = (Piece.knight<<1) | Piece.white;
+			int whiteKnight = Piece.KNIGHT | Piece.WHITE;
 			pieces[size-2-i*5] = whiteKnight;
-			int blackKnight = (Piece.knight<<1) | Piece.black;
+			int blackKnight = Piece.KNIGHT | Piece.BLACK;
 			pieces[1+i*5] = blackKnight;
 		} 
 		
 		//Initialize Bishops
 		for(int i=0;i<2;i++) {
-			int whiteBishop = (Piece.bishop<<1) | Piece.white;
+			int whiteBishop = Piece.BISHOP | Piece.WHITE;
 			pieces[size-3-i*3] = whiteBishop;
-			int blackBishop = (Piece.bishop<<1) | Piece.black;
+			int blackBishop = Piece.BISHOP | Piece.BLACK;
 			pieces[2+i*3] = blackBishop;
 		} 
 		
 		//Initialize Queens
-		int whiteQueen = (Piece.queen<<1) | Piece.white;
+		int whiteQueen = Piece.QUEEN | Piece.WHITE;
 		pieces[size-5] = whiteQueen;
-		int blackQueen = (Piece.queen<<1) | Piece.black;
+		int blackQueen = Piece.QUEEN | Piece.BLACK;
 		pieces[3] = blackQueen;
 				
 		//Initialize Kings
-		int whiteKing = (Piece.king<<1) | Piece.white;
+		int whiteKing = Piece.KING | Piece.WHITE;
 		pieces[size-4] = whiteKing;
-		int blackKing = (Piece.king<<1) | Piece.black;
+		int blackKing = Piece.KING | Piece.BLACK;
 		pieces[4] = blackKing;
 		
 	}
 
 	
 	public void printWhitePrespective() {
-		for (int i=0; i>height; i++) {
+		System.out.println("White Prespective:");
+		for (int i=0; i<height; i++) {
 			System.out.println();
-			System.out.println(" - - - - - - - -");
+			System.out.println(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+			System.out.print(" | ");
 			for (int j=0; j<width; j++) {
 				int current = pieces[i*8 + j];
-				System.out.print(recognizeColor(current)+recognizeType(current)+" ");
+				if(current==0)
+					System.out.print("       |");
+				else
+					System.out.print(recognizeColor(current)+recognizeType(current)+" | ");
 			}
 		}
+		System.out.println();
 	}
 	
 	
 	public void printBlackPrespective() {
+		System.out.println("Black Prespective:");
 		for (int i=height-1; i>-1; i--) {
 			System.out.println();
-			System.out.println(" - - - - - - - -");
-			for (int j=width-1; j>-1; j++) {
+			System.out.println(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+			System.out.print(" | ");
+			for (int j=width-1; j>-1; j--) {
 				int current = pieces[i*8 + j];
-				System.out.print(recognizeColor(current)+recognizeType(current)+" ");
+				if(current==0)
+					System.out.print("       |");
+				else
+					System.out.print(recognizeColor(current)+recognizeType(current)+" | ");
 			}
 		}
+		System.out.println();
 	}
+	
 	
 	public String recognizeColor(int piece) {
 		String color = "b";
@@ -99,26 +112,27 @@ private void initializePieces() {
 		return color;
 	}
 	
+	
 	public String recognizeType(int piece) {
 		int type = Piece.pieceType(piece);
 		switch (type) {
-		case 1: {
-			return "Pawn";
-		}
-		case 2:{
-			return "Rook";
-		}
-		case 3: {
-			return "Knight";
+		case 2: {
+			return "PAWN";
 		}
 		case 4:{
-			return "Bishop";
+			return "KING";
 		}
-		case 5: {
-			return "Queen";
+		case 6: {
+			return "KNIGHT";
 		}
-		case 6:{
-			return "King";
+		case 10:{
+			return "BISHOP";
+		}
+		case 12: {
+			return "QUEEN";
+		}
+		case 14:{
+			return "ROOK";
 		}
 		}
 		return "None";
