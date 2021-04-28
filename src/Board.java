@@ -67,6 +67,62 @@ private void initializePieces() {
 		pieces[4] = blackKing;
 		
 	}
+
+	
+	public void printWhitePrespective() {
+		for (int i=0; i>height; i++) {
+			System.out.println();
+			System.out.println(" - - - - - - - -");
+			for (int j=0; j<width; j++) {
+				int current = pieces[i*8 + j];
+				System.out.print(recognizeColor(current)+recognizeType(current)+" ");
+			}
+		}
+	}
+	
+	
+	public void printBlackPrespective() {
+		for (int i=height-1; i>-1; i--) {
+			System.out.println();
+			System.out.println(" - - - - - - - -");
+			for (int j=width-1; j>-1; j++) {
+				int current = pieces[i*8 + j];
+				System.out.print(recognizeColor(current)+recognizeType(current)+" ");
+			}
+		}
+	}
+	
+	public String recognizeColor(int piece) {
+		String color = "b";
+		if(Piece.pieceColor(piece))
+			color="w";
+		return color;
+	}
+	
+	public String recognizeType(int piece) {
+		int type = Piece.pieceType(piece);
+		switch (type) {
+		case 1: {
+			return "Pawn";
+		}
+		case 2:{
+			return "Rook";
+		}
+		case 3: {
+			return "Knight";
+		}
+		case 4:{
+			return "Bishop";
+		}
+		case 5: {
+			return "Queen";
+		}
+		case 6:{
+			return "King";
+		}
+		}
+		return "None";
+	}
 	
 	
 }
